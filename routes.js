@@ -7,16 +7,10 @@ const {
 
 const { postData } = require("./controller/postSlack");
 
-const massahmg100k =
-  "https://cdn.glitch.global/ec90d8df-1f9a-4362-b9a5-27617d607674/massa-hmg-100k.csv?v=1682700545006";
-
-const james =
-  "https://cdn.glitch.global/ec90d8df-1f9a-4362-b9a5-27617d607674/cohort-james.csv?v=1680028099050";
-
-const james_cae =
-  "https://cdn.glitch.global/ec90d8df-1f9a-4362-b9a5-27617d607674/cohort-james-cae.csv?v=1680029148265";
-
-const workshop = "https://cdn.glitch.global/ec90d8df-1f9a-4362-b9a5-27617d607674/workshop-xj.csv?v=1684257743908";
+const massahmg100k = './cohorts/massa-hmg-100k.csv?v=1682700545006';
+const james = './cohorts/cohort-james.csv';
+const james_cae = './cohorts/cohort-james-cae.csv?v=1680029148265';
+const workshop = './cohorts/workshop-xj.csv?v=1684257743908';
 
 let cont = 0;
 
@@ -59,6 +53,7 @@ module.exports = (app) => {
   app.get("/5/cohorts/request-status/:requestId", requestStatusByRequestId);
   app.get("/5/cohorts/request/:requestId/file", (req, res) => {
     console.log("Rota ", req.originalUrl, " (get file)");
+    console.log('🚀 ~ file: routes.js:69 ~ app.get ~ james:', james)
     /* if(cont === 0){
       cont =1;
       res.set('location', urlFile);
@@ -68,8 +63,16 @@ module.exports = (app) => {
       res.set('location', urlFileTwo);
       res.sendStatus(302);
     }*/
-    res.set("location", workshop);
-    res.sendStatus(302);
+    // res.set("location", james);
+    // res.sendStatus(302);
+
+    res.sendFile(james, { root: __dirname }, (err) => {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500);
+      }
+      res.sendStatus(302);
+    });
   });
   app.get("/file/:requestId/download", getCohortFileByRequestId);
   app.get("/3/cohorts", getCohorts);
