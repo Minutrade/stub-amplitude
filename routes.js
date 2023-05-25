@@ -52,8 +52,6 @@ module.exports = (app) => {
   app.get("/5/cohorts/request/:cohortId", getCohortFileById);
   app.get("/5/cohorts/request-status/:requestId", requestStatusByRequestId);
   app.get("/5/cohorts/request/:requestId/file", (req, res) => {
-    console.log("Rota ", req.originalUrl, " (get file)");
-    console.log('🚀 ~ file: routes.js:69 ~ app.get ~ james:', james)
     /* if(cont === 0){
       cont =1;
       res.set('location', urlFile);
@@ -71,6 +69,7 @@ module.exports = (app) => {
         console.error(err);
         res.sendStatus(500);
       }
+      res.set("location", james);
       res.sendStatus(302);
     });
   });
