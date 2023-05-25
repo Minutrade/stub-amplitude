@@ -68,9 +68,7 @@ module.exports = (app) => {
       if (err) {
         console.error(err);
         res.sendStatus(500);
-      }
-      res.set("location", james);
-      res.sendStatus(302);
+      }      
     });
   });
   app.get("/file/:requestId/download", getCohortFileByRequestId);
